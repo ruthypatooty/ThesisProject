@@ -1,0 +1,30 @@
+Vehicle 
+    id: Int (Unique, Primary Key)
+    plateNumber: String(required,unique)
+    engineNumber: String(unique)
+    ownerName: String
+    ownerContact: String(unique)
+    lastSeenLoc: String
+    lastSeenDate: Date
+    isHotplate: Boolean(default=False)
+
+Admin(LTO-Officer)
+    id: Int (Unique, Primary Key)
+    email: String(required, unique)
+    password: String
+    name: String
+    notifyIfFoundHotPlate: Boolean(default: False)
+    adminContact: String(unique)
+
+Violation
+    id: Int (Unique, Primary Key)
+    violationName: String(required)
+    violationDesc: String(required)
+    violationAddedTo: Vehicle(ForeignKey, one-to-one)
+    violationAddedBy: Admin(ForeignKey, one-to-one)
+    createdAt: Date
+    isResolved: Boolean(default=false)
+    resolvedDate: Date
+
+
+    
