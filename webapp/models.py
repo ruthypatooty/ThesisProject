@@ -1,10 +1,19 @@
+from enum import unique
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 
-# class Vehicle(db.Model):
-#     pass
+class Car(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    plateNumber = db.Column(db.String(150), unique=True, nullable=False)
+    engineNumber = db.Column(db.String(150),unique=True, nullable=True)
+    ownerName = db.Column(db.String(150))
+    ownerContact = db.Column(db.String(150))
+    lastSeenLoc = db.Column(db.String(150))
+    lastSeenDate = db.Column(db.DateTime)
+    isHotplate = db.Column(db.Boolean, default=False)
+
 
 
 class Admin(db.Model, UserMixin):
@@ -15,13 +24,6 @@ class Admin(db.Model, UserMixin):
     notifyIfFoundHotPlate = db.Column(db.Boolean, default=False)
     adminContact = db.Column(db.String(150))
 
-# Admin(LTO-Officer)
-#     id: Int (Unique, Primary Key)
-#     email: String(required, unique)
-#     password: String
-#     name: String
-#     notifyIfFoundHotPlate: Boolean(default: False)
-#     adminContact: String(unique)
 
 
 # class Violation(db.model):

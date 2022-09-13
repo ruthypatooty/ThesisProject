@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block title %}Add Vehicle{% endblock %} {% block
+    content %}
+    <form method="POST">
+        <h3 align="center">Add Car</h3>
+        <div class="form-group">
+          <label for="plateNumber">Plate Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="plateNumber"
+            name="plateNumber"
+            placeholder="Enter Plate Number"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="engineNumber">Engine Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="engineNumber"
+            name="engineNumber"
+            placeholder="Enter Engine Number"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ownerName">Owner Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ownerName"
+            name="ownerName"
+            placeholder="Enter Owner Name"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ownerContact">Owner Contact</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ownerContact"
+            name="ownerContact"
+            placeholder="Enter Owner Contact"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="isHotplate">Is Hot Plate</label>
+          <input
+            type="checkbox"
+            class="form-control"
+            id="isHotplate"
+            name="isHotplate"
+            value = "true"
+            
+          />
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      
+
+{% endblock %}

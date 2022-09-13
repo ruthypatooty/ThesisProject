@@ -1,0 +1,78 @@
+{% extends "base.html" %} {% block title %}Update Car{% endblock %} {% block
+    content %}
+    <form method="POST">
+        <h3 align="center">Update Car</h3>
+        <a class="btn btn-primary" href="/car">Back</a>
+        <h4>Plate Number: <p>{{car.plateNumber}}</p></h4>
+        <div class="form-group">
+          <label for="engineNumber">Engine Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="engineNumber"
+            name="engineNumber"
+            placeholder="Enter Engine Number"
+            value="{{car.engineNumber}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ownerName">Owner Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ownerName"
+            name="ownerName"
+            placeholder="Enter Owner Name"
+            value="{{car.ownerName}}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="ownerContact">Owner Contact</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ownerContact"
+            name="ownerContact"
+            placeholder="Enter Owner Contact"
+            value="{{car.ownerContact}}"
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="lastSeenLoc">Last Seen Location</label>
+            <input
+              type="text"
+              class="form-control"
+              id="lastSeenLoc"
+              name="lastSeenLoc"
+              placeholder="Enter Place"
+              value="{{car.lastSeenLoc}}"
+            />
+          </div>
+        <div class="form-group">
+            <label for="lastSeenDate">Last Seen Date</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="lastSeenDate"
+              name="lastSeenDate"
+              value="{{car.lastSeenDate}}"
+            
+            />
+          </div>
+
+        <div class="form-group">
+          <label for="isHotplate">Is Hot Plate</label>
+          <input
+            type="checkbox"
+            class="form-control"
+            id="isHotplate"
+            name="isHotplate"
+            value = value={{engineNumber}}
+            
+          />
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+{% endblock %}
