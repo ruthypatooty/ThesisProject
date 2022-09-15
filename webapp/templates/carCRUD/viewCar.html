@@ -1,15 +1,33 @@
 {% extends "base.html" %} {% block title %}Vehicle{% endblock %} {% block
     content %}
-<h1>Vehicle Information</h1>
-<a class="btn btn-primary" href="/car">Back</a>
-<a class="btn btn-danger" href="./delete?id={{car.id}}">Delete</a>
-<p>Plate number: {{car.plateNumber}}</p>
-<p>Engine Number: {{car.engineNumber}}</p>
-<p>Owner Name: {{car.ownerName}}</p>
-<p>Owner Contact: {{car.ownerContact}}</p>
-<p>Last Seen Location: {{car.lastSeenLoc}}</p>
-<p>Last Seen Date: {{car.lastSeenDate}}</p>
-<p>Hot Plate: {{car.isHotplate}}</p>
-<br>
-<a class="btn btn-primary" href="./update?id={{car.id}}">Update</a>
+    <h1>Vehicle Information</h1>
+    <a class="btn btn-primary" href="/car">Back</a>
+    <a class="btn btn-danger" href="./delete?id={{car.id}}">Delete</a>
+    <p>Plate number: {{car.plateNumber}}</p>
+    <p>Engine Number: {{car.engineNumber}}</p>
+    <p>Owner Name: {{car.ownerName}}</p>
+    <p>Owner Contact: {{car.ownerContact}}</p>
+    <p>Last Seen Location: {{car.lastSeenLoc}}</p>
+    <p>Last Seen Date: {{car.lastSeenDate}}</p>
+    <p>Hot Plate: {{car.isHotplate}}</p>
+    <br>
+    <a class="btn btn-primary" href="./update?id={{car.id}}">Update</a>
+    <a class="btn btn-primary" href="../violation/add?id={{car.id}}">Add Violation</a>
+
+
+    <h5>Violations</h5>
+    <ul class="list-group list-group-flush" id="notes">
+        {% for violation in violations %}
+        <li class="list-group-item" style="cursor: pointer;" onClick="clickViolation({{violation.id}})">
+            {{ violation.violationName }}
+
+            
+        </li>
+        {% endfor %}
+    </ul>
+
+    
+
+
+
 {% endblock %}

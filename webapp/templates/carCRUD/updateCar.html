@@ -68,8 +68,10 @@
             class="form-control"
             id="isHotplate"
             name="isHotplate"
-            value = value={{engineNumber}}
-            
+            value={{car.isHotplate}}
+            {% if car.isHotplate %}
+              checked
+            {% endif %}
           />
         </div>
 

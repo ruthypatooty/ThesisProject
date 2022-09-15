@@ -20,7 +20,7 @@ def login():
             if check_password_hash(admin.password, password):
                 #flash('Logged in successfully!', category='success')
                 login_user(admin, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect('/car')
             else:
                 pass
                 #flash('Incorrect password, try again.', category='error')
@@ -57,8 +57,15 @@ def sign_up():
         db.session.commit()
         login_user(new_admin, remember=True)
         #flash('Account created!', category='success')
-        return redirect(url_for('views.home'))
+        return redirect('/login')
         
 
 
     return render_template("sign_up.html")
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect("/")

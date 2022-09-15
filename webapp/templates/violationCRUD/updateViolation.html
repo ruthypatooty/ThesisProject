@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block title %}Update Violation{% endblock %} {% block
+    content %}
+    <form method="POST">
+        <h3 align="center">Update Violation</h3>
+        <a class="btn btn-primary" href="/car">Back</a>
+        <h4>Plate Number: <p>{{car.plateNumber}}</p></h4>
+        <div class="form-group">
+          <label for="violationName">Violation name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="violationName"
+            name="violationName"
+            placeholder="Enter Violation Name"
+            value="{{violation.violationName}}"
+          />
+        </div>
+        <div class="form-group">
+            <label for="violationDesc">Description</label>
+              <textarea
+              class="form-control"
+              id="violationDesc"
+              name="violationDesc"
+              placeholder="Enter Description"
+              value = {{violation.violationDesc}}
+              ></textarea>
+        </div> 
+        <div class="form-group">
+          <label for="ownerName">Owner Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ownerName"
+            name="ownerName"
+            placeholder="Enter Owner Name"
+            value="{{car.ownerName}}"
+            readonly
+          />
+        <div class="form-group">
+          <label for="addedBy">Violation Added By</label>
+          <input
+            type="text"
+            class="form-control"
+            id="addedBy"
+            name="addedBy"
+            placeholder="Enter Admin Name"
+            value="{{violationAddedByName}}"
+            readonly
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="createdAt">Created At</label>
+            <input
+              type="datetime-local"
+              class="form-control"
+              id="createdAt"
+              name="createdAt"
+              value="{{violation.createdAt}}"
+              readonly
+            
+            />
+          </div>
+
+        <div class="form-group">
+          <label for="isResolved">Resolved</label>
+          <input
+            type="checkbox"
+            class="form-control"
+            id="isResolved"
+            name="isResolved"
+            value = {{violation.isResolved}}
+            {% if violation.isResolved %}
+                checked
+            {% endif %}
+            
+          />
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+{% endblock %}

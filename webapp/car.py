@@ -1,21 +1,22 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from .models import Car
+from .models import Car, Violation
 from . import db
-#from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user
 from datetime import datetime
 
 
 carBlueprint = Blueprint('car', __name__)
 
-@carBlueprint.route('/car')
+@carBlueprint.route('/')
+@login_required
 def car():
-
     cars = Car.query.all()
 
     return render_template("carHome.html",cars=cars)
 
 
-@carBlueprint.route('/car/add', methods=['GET', 'POST'])
+@carBlueprint.route('add', methods=['GET', 'POST'])
+@login_required
 def addCar():
     if request.method == "POST":
         print(request.form)
@@ -45,14 +46,18 @@ def addCar():
     return render_template("/carCRUD/addCar.html")
 
 
-@carBlueprint.route('/car/view', methods=['GET', 'POST'])
+@carBlueprint.route('view', methods=['GET', 'POST'])
+@login_required
 def viewCar():
     id = request.args.get('id')
     car = Car.query.filter_by(id=id).first()
-    print(car.plateNumber)
-    return render_template("/carCRUD/viewCar.html",car=car )
+    violations = Violation.query.filter_by(violationOwner=car.id)
+    return render_template("/carCRUD/viewCar.html",car=car,violations=violations )
 
-@carBlueprint.route('/car/delete', methods=['GET', 'POST'])
+
+
+@carBlueprint.route('delete', methods=['GET', 'POST'])
+@login_required
 def deleteCar():
     id = request.args.get('id')
     car = Car.query.filter_by(id=id).first()
@@ -61,8 +66,10 @@ def deleteCar():
     return redirect('/car')
 
 
-@carBlueprint.route('/car/update', methods=['GET', 'POST'])
+@carBlueprint.route('update', methods=['GET', 'POST'])
+@login_required
 def updateCar():
+    
     id = request.args.get('id')
     car = Car.query.filter_by(id=id).first()
     if request.method == "POST":
@@ -78,21 +85,27 @@ def updateCar():
             isHotplate = False
         lastSeenLoc = request.form.get('lastSeenLoc')
         lastSeenDate = request.form.get('lastSeenDate')
-        lastSeenDate = datetime.strptime(lastSeenDate,"%Y-%m-%dT%H:%M")
+    
+        if lastSeenDate:
+            lastSeenDate = datetime.strptime(lastSeenDate,"%Y-%m-%dT%H:%M")
+            car.lastSeenDate = lastSeenDate
+
+   
 
         car.engineNumber = engineNumber
         car.ownerName = ownerName
         car.ownerContact = ownerContact
         car.isHotplate = isHotplate
         car.lastSeenLoc = lastSeenLoc
-        car.lastSeenDate = lastSeenDate
+        
         db.session.commit()
         return redirect(f'/car/view?id={id}')
 
 
     return render_template("/carCRUD/updateCar.html",car=car )
 
-@carBlueprint.route('/car', methods=['GET', 'POST'])
+@carBlueprint.route('/', methods=['POST'])
+@login_required
 def filerCarbyLicense():
     if request.method == 'POST':
         print(request.form.get('plateNumber'))

@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block title %}Violation{% endblock %} {% block
+    content %}
+    <h1>Violation Information</h1>
+    <a class="btn btn-primary" href="/car/view?id={{violation.violationOwner}}">Back</a>
+
+    <p>For Plate Number: {{car.plateNumber}}</p>
+    <p>Violation Name: {{violation.violationName}}</p>
+    <p>Violation Description: {{violation.violationDesc}}</p>
+    <p>Violation Added By: {{violationAddedByName}}</p>
+    <p>Created At: {{violation.createdAt}}</p>
+    <p>Resolved: {{violation.isResolved}}</p>
+    <p>Resolved Date: {{violation.resolvedDate}}</p>
+
+    <br>
+
+    <a class="btn btn-primary" href="./update?id={{violation.id}}">Update</a>
+
+
+{% endblock %}

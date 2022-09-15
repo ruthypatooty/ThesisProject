@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block title %}Add Violation{% endblock %} {% block
+    content %}
+    <form method="POST">
+        <h3 align="center">Add Violation</h3>
+        <h5>For plate number: <p>{{car.plateNumber}}</p></h5>
+        <div class="form-group">
+          <label for="violationName">Violation Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="violationName"
+            name="violationName"
+            placeholder="Enter Violation Name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="violationDesc">Description</label>
+            <textarea
+            class="form-control"
+            id="violationDesc"
+            name="violationDesc"
+            placeholder="Enter Description"
+            ></textarea>
+        </div> 
+
+        <br />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+      
+
+{% endblock %}

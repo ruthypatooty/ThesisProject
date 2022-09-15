@@ -14,17 +14,19 @@ def create_app():
 
     db.init_app(app)
 
-    from .models import Admin, Car
+    from .models import Admin, Car, Violation
     create_database(app)
 
 
     from .views import views
     from .auth import auth
     from .car import carBlueprint
+    from .violation import violationBlueprint
 
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-    app.register_blueprint(carBlueprint, url_prefix='/')
+    app.register_blueprint(carBlueprint, url_prefix='/car')
+    app.register_blueprint(violationBlueprint, url_prefix='/violation')
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
