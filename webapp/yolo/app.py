@@ -89,11 +89,11 @@ def drawings(image,boxes_np,confidences_np,index):
         cv2.namedWindow('LICENSE PLATE',cv2.WINDOW_KEEPRATIO)
         cv2.imshow('LICENSE PLATE',roi)
 
-        (thresh, blackAndWhiteImage) = cv2.threshold(grayImage, 127, 255, cv2.THRESH_BINARY)
+        # (thresh, blackAndWhiteImage) = cv2.threshold(grayImage, 127, 255, cv2.THRESH_BINARY)
 
         cv2.namedWindow('BW LICENSE PLATE',cv2.WINDOW_KEEPRATIO)
-        cv2.imshow('BW LICENSE PLATE',blackAndWhiteImage)
-
+        cv2.imshow('BW LICENSE PLATE',grayImage)
+        
         ########################
 
         cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,255),2)
@@ -129,7 +129,8 @@ def extract_text(image,bbox):
         return text
     
     
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('traffic.mp4')
+
  
 
 while True:
