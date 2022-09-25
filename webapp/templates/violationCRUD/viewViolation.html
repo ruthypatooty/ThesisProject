@@ -1,19 +1,113 @@
 {% extends "base.html" %} {% block title %}Violation{% endblock %} {% block
-    content %}
-    <h1>Violation Information</h1>
-    <a class="btn btn-primary" href="/car/view?id={{violation.violationOwner}}">Back</a>
+content %}
+<h1>Violation Information</h1>
 
-    <p>For Plate Number: {{car.plateNumber}}</p>
-    <p>Violation Name: {{violation.violationName}}</p>
-    <p>Violation Description: {{violation.violationDesc}}</p>
-    <p>Violation Added By: {{violationAddedByName}}</p>
-    <p>Created At: {{violation.createdAt}}</p>
-    <p>Resolved: {{violation.isResolved}}</p>
-    <p>Resolved Date: {{violation.resolvedDate}}</p>
+<a class="btn btn-light" href="/car/view?id={{violation.violationOwner}}"><span><i
+            class="bi bi-skip-backward"></i></span></a>
 
-    <br>
+<table class="table table-primary">
+    <tbody>
+        <tr>
+            <th scope="col">For Plate Number</th>
+            <td>{{car.plateNumber}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Violation Name:</th>
+            <td>{{violation.violationName}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Violation Description:</th>
+            <td>{{violation.violationDesc}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Violation Added By:</th>
+            <td>{{violationAddedByName}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Created At:</th>
+            <td>{{violation.createdAt}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Resolved:</th>
+            <td>{{violation.isResolved}}</td>
+        </tr>
+        <tr>
+            <th scope="col">Resolved Date:</th>
+            <td>{{violation.resolvedDate}}</td>
+        </tr>
+    <tbody>
+</table>
 
-    <a class="btn btn-primary" href="./update?id={{violation.id}}">Update</a>
+
+
+
+<!-- Button trigger modal -->
+<a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="./update?id={{violation.id}}">Update</a>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Update Violation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!--start form-->
+                <form method="POST">
+                    <h4>Plate Number: <p>{{car.plateNumber}}</p>
+                    </h4>
+                    <div class="form-group">
+                        <label for="violationName">Violation name</label>
+                        <input type="text" class="form-control" id="violationName" name="violationName"
+                            placeholder="Enter Violation Name" value="{{violation.violationName}}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="violationDesc">Description</label>
+                        <textarea class="form-control" id="violationDesc" name="violationDesc"
+                            placeholder="Enter Description" value={{violation.violationDesc}}></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="ownerName">Owner Name</label>
+                        <input type="text" class="form-control" id="ownerName" name="ownerName"
+                            placeholder="Enter Owner Name" value="{{car.ownerName}}" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label for="addedBy">Violation Added By</label>
+                        <input type="text" class="form-control" id="addedBy" name="addedBy"
+                            placeholder="Enter Admin Name" value="{{violationAddedByName}}" readonly />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="createdAt">Created At</label>
+                        <input type="datetime-local" class="form-control" id="createdAt" name="createdAt"
+                            value="{{violation.createdAt}}" readonly />
+                    </div>
+
+                    
+                    <div class="form-check" id="checkboxViolation">
+                        <input class="form-check-input" type="checkbox" value="" id="isResolved" name="isResolved"
+                        value={{violation.isResolved}} {% if violation.isResolved %} checked {% endif %}>
+                        <label class="form-check-label" for="isResolved">
+                            Resolved
+                        </label>
+                      </div>
+
+                </form>
+                <!--end form-->
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 {% endblock %}

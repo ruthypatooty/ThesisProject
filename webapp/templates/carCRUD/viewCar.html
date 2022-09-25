@@ -1,33 +1,185 @@
 {% extends "base.html" %} {% block title %}Vehicle{% endblock %} {% block
-    content %}
-    <h1>Vehicle Information</h1>
-    <a class="btn btn-primary" href="/car">Back</a>
-    <a class="btn btn-danger" href="./delete?id={{car.id}}">Delete</a>
-    <p>Plate number: {{car.plateNumber}}</p>
-    <p>Engine Number: {{car.engineNumber}}</p>
-    <p>Owner Name: {{car.ownerName}}</p>
-    <p>Owner Contact: {{car.ownerContact}}</p>
-    <p>Last Seen Location: {{car.lastSeenLoc}}</p>
-    <p>Last Seen Date: {{car.lastSeenDate}}</p>
-    <p>Hot Plate: {{car.isHotplate}}</p>
-    <br>
-    <a class="btn btn-primary" href="./update?id={{car.id}}">Update</a>
-    <a class="btn btn-primary" href="../violation/add?id={{car.id}}">Add Violation</a>
+content %}
+<h1 class="vehicletitle">Vehicle Information</h1>
+<a id="backwards" class="btn btn-light" href="/car"><span><i class="bi bi-skip-backward"></i></span></a>
+
+<div class="row viewcarrow">
+    <div class="col-6">
+        <table class="table table-primary">
+            <tbody>
+                <tr>
+                    <th scope="col">Plate Number</th>
+                    <td>{{car.plateNumber}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Engine Number</th>
+                    <td>{{car.engineNumber}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Owner Name</th>
+                    <td>{{car.ownerName}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Owner Contact</th>
+                    <td>{{car.ownerContact}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Last Seen Location</th>
+                    <td>{{car.lastSeenLoc}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Last Seen Date</th>
+                    <td>{{car.lastSeenDate}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Hot Plate</th>
+                    <td>{{car.isHotplate}}</td>
+                </tr>
+            <tbody>
+        </table>
+        <a class="btn btn-danger" href="./delete?id={{car.id}}">Delete</a>
+        <!-- Button trigger modal update -->
+
+        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            href="./update?id={{car.id}}">Update</a>
+
+        <!-- Modal for UPDATE-->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Update Car</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!--FORM INSIDE MODAL-->
+                        <form method="POST">
+
+                            <h4>Plate Number: <p>{{car.plateNumber}}</p>
+                            </h4>
+                            <div class="form-group">
+                                <label for="engineNumber">Engine Number</label>
+                                <input type="text" class="form-control" id="engineNumber" name="engineNumber"
+                                    placeholder="Enter Engine Number" value="{{car.engineNumber}}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerName">Owner Name</label>
+                                <input type="text" class="form-control" id="ownerName" name="ownerName"
+                                    placeholder="Enter Owner Name" value="{{car.ownerName}}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="ownerContact">Owner Contact</label>
+                                <input type="text" class="form-control" id="ownerContact" name="ownerContact"
+                                    placeholder="Enter Owner Contact" value="{{car.ownerContact}}" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastSeenLoc">Last Seen Location</label>
+                                <input type="text" class="form-control" id="lastSeenLoc" name="lastSeenLoc"
+                                    placeholder="Enter Place" value="{{car.lastSeenLoc}}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastSeenDate">Last Seen Date</label>
+                                <input type="datetime-local" class="form-control" id="lastSeenDate" name="lastSeenDate"
+                                    value="{{car.lastSeenDate}}" />
+                            </div>
+
+                            <div class="form-check" >
+                                <label class="form-check-label" for="isHotplate">Is Hot Plate</label>
+                                <input type="checkbox" class="form-check-input" id="isHotplate" name="isHotplate"
+                                    value={{car.isHotplate}} {% if car.isHotplate %} checked {% endif %} />
+                            </div>
+
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-    <h5>Violations</h5>
-    <ul class="list-group list-group-flush" id="notes">
-        {% for violation in violations %}
-        <li class="list-group-item" style="cursor: pointer;" onClick="clickViolation({{violation.id}})">
-            {{ violation.violationName }}
-
-            
-        </li>
-        {% endfor %}
-    </ul>
-
-    
+        <!--FORM INSIDE MODAL FOR UPDATE-->
+    </div>
+    <div class="col-6">
+        <table class="table table-primary">
 
 
+            <thead>
+                <tr>
 
+                    {% for violation in violations %}
+                    {% if loop.index==loop.length %}
+
+                    {% endif %}
+                    <th scope="col">Violations count {{loop.length}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onClick="clickViolation({{violation.id}})">
+                    <td id="vName" colspan="2">{{ violation.violationName }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+
+
+
+
+        </table>
+
+        <!-- modal for Addviolation-->
+
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Add Violation dapat to
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            href="../violation/add?id={{car.id}}">Add Violation</a>
+        <!--modal for addViolation-->
+
+
+
+
+    </div>
+
+
+</div>
+
+
+{% block head %}
+<style>
+    td[id^='vName'] {
+
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+    }
+
+    td[id^='vName']:hover {
+
+        box-shadow: 2px 2px 2px 2px #abaeb1;
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %}
 {% endblock %}

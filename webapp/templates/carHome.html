@@ -1,29 +1,126 @@
 {% extends "base.html" %} {% block title %}Car Home{% endblock %} {% block
-    content %}
-    
+content %}
 
-    <a href="/logout">logout</a>
-    <h1 align="center">Vehicle Plate Number</h1>
-    <form method="POST">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Enter License Plate" aria-label="Enter License Plate" aria-describedby="basic-addon2" name="plateNumber">
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit">Search</button>
-            </div>
-          </div>
 
-    </form>
-   
+<div class="row">
+  <h1 align="center">Vehicle Plate Number</h1>
+</div>
 
-    <ul class="list-group list-group-flush" id="notes">
+
+
+
+<form method="POST">
+  <div class="input-group mb-3">
+    <input type="text" maxlength="9" size="10" class="form-control" placeholder="Enter License Plate" aria-label="Enter License Plate"
+      aria-describedby="basic-addon2" name="plateNumber">
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-secondary"><span class="fa fa-search"></span> Search</button>
+    </div>
+  </div>
+</form>
+
+
+
+
+<table class="table table-hover table-primary">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Plate Number</th>
+      <th scope="col">Name</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
     {% for car in cars %}
-    <li class="list-group-item" style="cursor: pointer;" onClick="clickLicensePlate({{car.id}})">
-        {{ car.plateNumber }}
-
-        
-    </li>
+    <tr style="cursor: pointer;" onClick="clickLicensePlate({{car.id}})">
+      <th scope="row">{{loop.index}}</th>
+      <td>{{ car.plateNumber }}</td>
+      <td>{{ car.ownerName }}</td>
+    </tr>
     {% endfor %}
-    </ul>
-    <a class="btn btn-primary mt-5"href="./add">Add Vehicle</a>
+  </tbody>
+</table>
+
+<!--<a class="btn btn-primary mt-5" href="./add">Add Vehicle</a>-->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Add Vehicle
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Car</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!--modal content-->
+        <form method="POST">
+
+          <div class="form-group">
+            <label for="plateNumber">Plate Number</label>
+            <input type="text" maxlength="9" size="9" class="form-control" id="plateNumber" name="plateNumber" placeholder="Enter Plate Number"
+              required />
+          </div>
+          <div class="form-group">
+            <label for="engineNumber">Engine Number</label>
+            <input type="text" class="form-control" id="engineNumber" name="engineNumber"
+              placeholder="Enter Engine Number" />
+          </div>
+          <div class="form-group">
+            <label for="ownerName">Owner Name</label>
+            <input type="text" class="form-control" id="ownerName" name="ownerName" placeholder="Enter Owner Name" />
+          </div>
+          <div class="form-group">
+            <label for="ownerContact">Owner Contact</label>
+            <input type="text" class="form-control" id="ownerContact" name="ownerContact"
+              placeholder="Enter Owner Contact" />
+          </div>
+          <div class="form-check" id="hotplate">
+            <input class="form-check-input" type="checkbox" id="isHotplate" name="isHotplate" value="true">
+            <label class="form-check-label" for="isHotplate">Is Hot Plate</label>
+          </div>
+        </form>
+      </div>
+      <!--modal content-->
+
+      <div class="modal-footer">
+
+        <button type="submit" class="btn btn-primary">Add</button>
+        
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+{% block head %}
+<!--<style>
+  form>input{
+    width:50px;
+    border-style: double;
+  }
+
+  .row {
+    margin-top: 100px;
+  }
+
+  body{
+    background-image: url('mmda1.jpg');
     
+  }
+</style>-->
+{% endblock %}
+
 {% endblock %}

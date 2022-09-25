@@ -102,7 +102,7 @@ def updateCar():
         return redirect(f'/car/view?id={id}')
 
 
-    return render_template("/carCRUD/updateCar.html",car=car )
+    return render_template("/carCRUD/viewCar.html",car=car )
 
 @carBlueprint.route('/', methods=['POST'])
 @login_required
